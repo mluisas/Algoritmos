@@ -184,39 +184,38 @@ class RBTree:
                 if w.left.color == 'Black' and w.right.color == 'Black':
                     w.color = 'Red'
                     x = x.p
-                elif w.right.color == 'Black':
-                    w.left.color = 'Black'
-                    w.color = 'Red'
-                    self.right_rotate(w)
-                    w = x.p.right
                 else:
+                    if w.right.color == 'Black':
+                        w.left.color = 'Black'
+                        w.color = 'Red'
+                        self.right_rotate(w)
+                        w = x.p.right
                     w.color = x.p.color
                     x.p.color = 'Black'
                     w.right.color = 'Black'
                     self.left_rotate(x.p)
                     x = self.root
             else:
-                if x is x.p.right:
+                w = x.p.left
+                if w.color == 'Red':
+                    w.color = 'Black'
+                    x.p.color = 'Red'
+                    self.right_rotate(x.p)
                     w = x.p.left
-                    if w.color == 'Red':
-                        w.color = 'Black'
-                        x.p.color = 'Red'
-                        self.right_rotate(x.p)
-                        w = x.p.left
-                    if w.right.color == 'Black' and w.left.color == 'Black':
-                        w.color = 'Red'
-                        x = x.p
-                    elif w.left.color == 'Black':
+                if w.right.color == 'Black' and w.left.color == 'Black':
+                    w.color = 'Red'
+                    x = x.p
+                else:
+                    if w.left.color == 'Black':
                         w.right.color = 'Black'
                         w.color = 'Red'
                         self.left_rotate(w)
                         w = x.p.left
-                    else:
-                        w.color = x.p.color
-                        x.p.color = 'Black'
-                        w.left.color = 'Black'
-                        self.right_rotate(x.p)
-                        x = self.root
+                    w.color = x.p.color
+                    x.p.color = 'Black'
+                    w.left.color = 'Black'
+                    self.right_rotate(x.p)
+                    x = self.root
         x.color = 'Black'
 
     def RB_delete(self, z):
@@ -250,7 +249,7 @@ if __name__ == '__main__':
     opcao = 0
     while opcao < 10:
         opcao = int(input('''Digite a operação desejada:
-    0 - Criar raiz
+    0 - Criar árvore
     1 - Inserir nós
     2 - Deletar nós
     3 - Predecessor
@@ -297,6 +296,7 @@ if __name__ == '__main__':
 
             elif opcao == 7:
                 tree.inorder_tree_walk(tree.root)
+                print(tree.root)
             elif opcao == 8:
                 tree.pre_order(tree.root)
             elif opcao == 9:
