@@ -32,47 +32,34 @@ class RBTree:
         return x
 
     def inorder_tree_walk(self, x):
-        # Enquanto o nó não for sentinela
         if x is not self.null:
-            # Visita a sub-árvore esquerda
             self.inorder_tree_walk(x.left)
-            # Visita a raiz
             print(x.data, x.color)
-            # Visita a sub-árvore direita
             self.inorder_tree_walk(x.right)
 
     def pre_order(self, x):
-        # Enquanto o nó não for sentinela
         if x is not self.null:
-            # Visita a raiz
             print(x.data, x.color)
-            # Visita a sub-árvore esquerda
             self.pre_order(x.left)
-            # Visita a sub-árvore direita
             self.pre_order(x.right)
 
     def pos_order(self, x):
-        # Enquanto o nó não for sentinela
         if x is not self.null:
-            # Visita a sub-árvore esquerda
             self.pos_order(x.left)
-            # Visita a sub-árvore direita
             self.pos_order(x.right)
-            # Visita a raiz
             print(x.data, x.color)
 
-    # Retorna o elemento mais "a esquerda" da árvore
     def tree_minimum(self, x):
         while x.left is not self.null:
             x = x.left
         return x
-    # Retorna o elemento mais "a direita" da árvore
+
     def tree_maximum(self, x):
         while x.right is not self.null:
             x = x.right
         return x
 
-    # Retorna o nó mais à esquerda da subárvore direita
+
     def tree_successor(self, x):
         if x.right is not self.null:
             return self.tree_minimum(x.right)
@@ -81,7 +68,7 @@ class RBTree:
             x = y
             y = y.p
         return y
-    # Retorna o nó mais à direita da subárvore esquerda
+
     def tree_predecessor(self, x):
         if x.left is not self.null:
             return self.tree_maximum(x.left)
@@ -124,9 +111,7 @@ class RBTree:
             x.p = y
 
     def RB_insert_fixup(self, z):
-        # Como z é vermelho, o único caso que quebra alguma das regras é quando o pai de z for vermelho
         while z.p.color == 'Red':
-
             if z.p is z.p.p.left:
                 y = z.p.p.right
                 if y.color == 'Red':
